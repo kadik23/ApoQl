@@ -18,11 +18,7 @@ mongoose.connect('mongodb://localhost:27017/graphql-ninja', {
 
 app.use('/graphql', graphqlHTTP({
     schema,
-<<<<<<< HEAD
-    graphiql: true
-=======
     graphiql: true  
->>>>>>> 7192d607962f1017400a97a7e0df291d3f163396
 }));
 
 app.listen(port, () => {
