@@ -2,7 +2,7 @@ const graphql = require('graphql');
 const {GraphQLObjectType, GraphQLString, GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLSchema  } = graphql;
 const _ = require('lodash');
 const Book = require('../models/book');
-const Author = require('../models/Author');
+const Author = require('../models/author');
 
 var books = [
     { name: 'Name of the Wind', genre: 'Fantasy', id: '1', authorId: '1' },
