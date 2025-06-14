@@ -15,6 +15,11 @@ interface Book {
     author: Author;
 }
 
+interface BookListProps {
+    onBookSelect: (bookId: string) => void;
+    selectedBookId: string | null;
+}
+
 const GET_BOOKS_QUERY = gql`
     {
         books {
@@ -30,19 +35,7 @@ const GET_BOOKS_QUERY = gql`
     }
 `;
 
-const BookItem: React.FC<{ book: Book }> = ({ book }) => {
-    return (
-        <li className="book-item">
-            <div className="book-info">
-                <h3>{book.name}</h3>
-                <p className="genre">{book.genre}</p>
-                <p className="author">by {book.author.name} (Age: {book.author.age})</p>
-            </div>
-        </li>
-    );
-};
-
-const BookList: React.FC = () => {
+const BookList: React.FC<BookListProps> = ({ onBookSelect, selectedBookId }) => {
     const { loading, error, data, refetch } = useQuery(GET_BOOKS_QUERY);
 
     if (loading) return (
@@ -74,7 +67,17 @@ const BookList: React.FC = () => {
             </div>
             <ul id="book-list">
                 {data.books.map((book: Book) => (
-                    <BookItem key={book.id} book={book} />
+                    <li 
+                        key={book.id} 
+                        className={`book-item ${selectedBookId === book.id ? 'selected' : ''}`}
+                        onClick={() => onBookSelect(book.id)}
+                    >
+                        <div className="book-info">
+                            <h3>{book.name}</h3>
+                            <p className="genre">{book.genre}</p>
+                            <p className="author">by {book.author.name} (Age: {book.author.age})</p>
+                        </div>
+                    </li>
                 ))}
             </ul>
         </div>
