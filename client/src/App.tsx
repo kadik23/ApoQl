@@ -15,26 +15,47 @@ const App: React.FC = () => {
 
     const handleBookAdded = () => {
         setRefetchTrigger(prev => prev + 1);
-        setSelectedBookId(null); 
+        setSelectedBookId(null);
     };
 
     return (
         <ApolloProvider client={client}>
-            <div id="main">
-                <h1 style={{'padding':'20px'}}>Salah's Reading List</h1>
-                <div style={{'display':'flex', 'flexDirection':'row'}}>
-                    <div style={{'flex': '1'}}>
+            <div id="main" style={{ padding: '20px' }}>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '30px',
+                    borderBottom: '2px solid #4CAF50',
+                    paddingBottom: '20px'
+                }}>
+                    <h1 style={{ margin: 0 }}>Salah's Reading List</h1>
+                    <h2 style={{ margin: 0 }}>GraphQL X Apollo</h2>
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    gap: '30px',
+                    marginBottom: '30px'
+                }}>
+                    <div style={{ flex: '1' }}>
                         <BookList 
                             key={refetchTrigger} 
                             onBookSelect={setSelectedBookId}
                             selectedBookId={selectedBookId}
                         />
                     </div>
-                    <div style={{'flex': '1'}}>
+                    <div style={{ flex: '1' }}>
                         <BookDetails bookId={selectedBookId} />
                     </div>
                 </div>
-                <AddBook onBookAdded={handleBookAdded} />
+
+                <div style={{
+                    borderTop: '2px solid #4CAF50',
+                    paddingTop: '30px'
+                }}>
+                    <AddBook onBookAdded={handleBookAdded} />
+                </div>
             </div>
         </ApolloProvider>
     );
